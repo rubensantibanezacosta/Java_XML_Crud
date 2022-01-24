@@ -1,0 +1,67 @@
+<div class="container">
+  <h1>XML CRUD</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">size</th>
+        <th scope="col">color</th>
+        <th scope="col">weight</th>
+        <th scope="col" class="buttonsBlock"> <button class="btn btn-success btn-sm" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop" (click)="newModal()">New</button></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ball of balls, let i=index">
+        <th scope="row">{{ball.id}}</th>
+        <td>{{ball.size}} cm</td>
+        <td>{{ball.color}}</td>
+        <td>{{ball.weight}} g</td>
+        <td class="buttonsBlock">
+          <button class="btn btn-danger btn-sm" (click)="deleteBall(ball.id, i)">Delete</button>
+          <button class="btn btn-warning btn-sm"data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop" (click)="editModal(ball.id, i)" >Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{modalMode}} ball</h5>
+
+
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form #newBallForm="ngForm" (ngSubmit)="addBall()">
+        <div class="modal-body">
+
+          <label for="size" class="form-label">Size</label>
+          <input type="number" [(ngModel)]="ball.size" name="size" class="form-control" id="size" required/>
+          <br>
+          <label for="color" class="form-label">Color</label>
+          <input type="text" [(ngModel)]="ball.color" name="color" class="form-control" id="color" required/>
+          <br>
+          <label for="weight" class="form-label">Weight</label>
+          <input type="number" [(ngModel)]="ball.weight" name="weight" class="form-control" id="number" required/>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!newBallForm.form.valid" data-bs-dismiss="modal">Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
